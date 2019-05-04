@@ -10,7 +10,7 @@
     	boardList += "<tr><td colspan='5'>Not List</td></tr>";
     }else{
 		for(BoardBean bean : beans){
-			boardList += "<tr><td>" + bean.getBoard_num() + "</td>" +
+			boardList += "<tr><td>" + bean.getNum() + "</td>" +
 					"<td>" + bean.getTitle() + "</td>" +
 					"<td>" + bean.getWriter() + "</td>" +
 					"<td>" + bean.getWrite_date() + "</td>" +
@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>List</title>
 <link rel="stylesheet" type="text/css" href="./board/boardList.css" />
 </head>
 <body>
@@ -37,6 +37,6 @@
 		</tr>
 		${boardList}
 	</table>
-	<a href="./write.bo">Write</a>
+	<a href="write.bo">Write</a>
 </body>
 </html>

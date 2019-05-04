@@ -3,18 +3,18 @@ package net.board.db;
 import java.sql.Date;
 
 public class BoardBean {
-	private int board_num;
+	private int num;
 	private int read_count;
 	private String text;
 	private String title;
 	private Date write_date;
 	private String writer;
 	
-	public int getBoard_num() {
-		return board_num;
+	public int getNum() {
+		return num;
 	}
-	public void setBoard_num(int board_num) {
-		this.board_num = board_num;
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public int getRead_count() {
 		return read_count;
