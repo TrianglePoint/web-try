@@ -11,6 +11,7 @@
 		<span>Writer </span><input type="text" name="writer" /><br />
 		<span>Title </span><input type="text" name="title" /><br />
 		<textarea rows="5" cols="50" name="text"></textarea><br />
+		<span>Password </span><input type="password" name="pwd" /><br />
 		<input type="submit" value="Submit" />
 	</form>
 </body>

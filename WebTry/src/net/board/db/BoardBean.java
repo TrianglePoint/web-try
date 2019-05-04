@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class BoardBean {
 	private int num;
+	private String pwd;
 	private int read_count;
 	private String text;
 	private String title;
@@ -15,6 +16,12 @@ public class BoardBean {
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	public int getRead_count() {
 		return read_count;

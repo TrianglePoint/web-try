@@ -49,6 +49,15 @@ public class BoardFrontController extends HttpServlet implements FrontController
 			action = new BoardWriteAction();
 			forward = action.execute(request, response);
 		}
+		else if(command.equals("/delete.bo")) { // Show the delete post page.
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/jsp/board/boardDelete.jsp");
+		}
+		else if(command.equals("/deleteAction.bo")) { // Process the delete the post.
+			action = new BoardDeleteAction();
+			forward = action.execute(request, response);
+		}
 		
 		if(forward.isRedirect()) {
 			// SendRedirect.

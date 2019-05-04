@@ -11,7 +11,7 @@ import net.action.ActionForward;
 import net.board.db.BoardBean;
 import net.board.db.BoardDAO;
 
-public class BoardWriteAction implements Action {
+public class BoardDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -20,23 +20,21 @@ public class BoardWriteAction implements Action {
 		
 		BoardBean bean = new BoardBean();
 		
-		request.setCharacterEncoding("UTF-8");
-		
+		bean.setNum(Integer.parseInt(request.getParameter("num")));
 		bean.setPwd(request.getParameter("pwd"));
-		bean.setRead_count(0);
-		bean.setText(request.getParameter("text"));
-		bean.setTitle(request.getParameter("title"));
-		bean.setWrite_date(new java.sql.Date(System.currentTimeMillis()));
-		bean.setWriter(request.getParameter("writer"));
-		
-		if(!dao.insertPost(bean)){ // Request posting.
-			dao.close();
-			System.err.println("Failed posting");
-			return null;
-		}
-		dao.close();
 		
 		ActionForward forward = new ActionForward();
+		if(!dao.deletePost(bean)){ // Request delete the post.
+			dao.close();
+			System.err.println("Failed delete the post - num : " + bean.getNum());
+			
+			forward.setRedirect(true);
+			forward.setPath("view.bo?num=" + bean.getNum());
+			
+			return forward;
+		}
+		dao.close();
+
 		forward.setRedirect(true);
 		forward.setPath("list.bo");
 		

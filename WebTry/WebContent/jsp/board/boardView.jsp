@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>View</title>
 </head>
 <body>
 <table border="1">
@@ -25,6 +25,10 @@
 		<td colspan="4">${bean.text}</td>
 	</tr>
 </table>
+<form action="delete.bo" method="post">
+	<input type="hidden" name="num" value="${bean.num}" />
+	<input type="submit" value="Delete" />
+</form><br />
 <a href="list.bo">Back</a>
 </body>
 </html>

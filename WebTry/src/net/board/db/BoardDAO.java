@@ -99,12 +99,29 @@ public class BoardDAO implements DAO{
 	// Insert the post to DB.
 	public boolean insertPost(BoardBean bean) {
 		try {
-			pstmt = con.prepareStatement("INSERT INTO BOARD VALUES(BOARD_NUM_SEQ.NEXTVAL, ?, ?, ?, ?, ?)");
-			pstmt.setInt(1, bean.getRead_count());
-			pstmt.setString(2, bean.getText());
-			pstmt.setString(3, bean.getTitle());
-			pstmt.setDate(4, bean.getWrite_date());
-			pstmt.setString(5, bean.getWriter());
+			pstmt = con.prepareStatement("INSERT INTO BOARD VALUES(BOARD_NUM_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)");
+			pstmt.setString(1, bean.getPwd());
+			pstmt.setInt(2, bean.getRead_count());
+			pstmt.setString(3, bean.getText());
+			pstmt.setString(4, bean.getTitle());
+			pstmt.setDate(5, bean.getWrite_date());
+			pstmt.setString(6, bean.getWriter());
+					
+			if(pstmt.executeUpdate() != 0) {
+				return true;
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return false;
+	}
+	
+	// Delete the post as post number.
+	public boolean deletePost(BoardBean bean) {
+		try {
+			pstmt = con.prepareStatement("DELETE FROM BOARD WHERE NUM=? AND PWD=?");
+			pstmt.setInt(1, bean.getNum());
+			pstmt.setString(2, bean.getPwd());
 					
 			if(pstmt.executeUpdate() != 0) {
 				return true;
