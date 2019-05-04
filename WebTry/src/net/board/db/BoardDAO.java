@@ -31,22 +31,23 @@ public class BoardDAO implements DAO{
 		}
 	}
 	
+	// Get the post list.
 	public List<BoardBean> getList() {
 		List<BoardBean> beans = null;
 		
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("select * from board");
+			rs = stmt.executeQuery("SELECT * FROM BOARD");
 			
 			beans = new ArrayList<BoardBean>();
 			while(rs.next()) {
 				BoardBean bean = new BoardBean();
-				bean.setBoard_num(rs.getInt("board_num"));
-				bean.setRead_count(rs.getInt("read_count"));
-				bean.setText(rs.getString("text"));
-				bean.setTitle(rs.getString("title"));
-				bean.setWrite_date(rs.getDate("write_date"));
-				bean.setWriter(rs.getString("writer"));
+				bean.setNum(rs.getInt("NUM"));
+				bean.setRead_count(rs.getInt("READ_COUNT"));
+				bean.setText(rs.getString("TEXT"));
+				bean.setTitle(rs.getString("TITLE"));
+				bean.setWrite_date(rs.getDate("WRITE_DATE"));
+				bean.setWriter(rs.getString("WRITER"));
 				beans.add(bean);
 			}
 			
@@ -55,6 +56,63 @@ public class BoardDAO implements DAO{
 			se.printStackTrace();
 		}
 		return null;
+	}
+	
+	// Increase the number of post.
+	public boolean readcountUp(BoardBean bean) {
+		try {
+			pstmt = con.prepareStatement("UPDATE BOARD SET READ_COUNT=READ_COUNT+1 WHERE num=?");
+			pstmt.setInt(1, bean.getNum());
+			
+			if(pstmt.executeUpdate() != 0) {
+				return true;
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return false;
+	}
+	
+	// Get the post as post number.
+	public BoardBean getPost(BoardBean bean) {
+		try {
+			pstmt = con.prepareStatement("SELECT * FROM BOARD WHERE NUM=?");
+			pstmt.setInt(1, bean.getNum());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bean.setRead_count(rs.getInt("READ_COUNT"));
+				bean.setText(rs.getString("TEXT"));
+				bean.setTitle(rs.getString("TITLE"));
+				bean.setWrite_date(rs.getDate("WRITE_DATE"));
+				bean.setWriter(rs.getString("WRITER"));
+			}
+			
+			return bean;
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return null;
+	}
+	
+	// Insert the post to DB.
+	public boolean insertPost(BoardBean bean) {
+		try {
+			pstmt = con.prepareStatement("INSERT INTO BOARD VALUES(BOARD_NUM_SEQ.NEXTVAL, ?, ?, ?, ?, ?)");
+			pstmt.setInt(1, bean.getRead_count());
+			pstmt.setString(2, bean.getText());
+			pstmt.setString(3, bean.getTitle());
+			pstmt.setDate(4, bean.getWrite_date());
+			pstmt.setString(5, bean.getWriter());
+					
+			if(pstmt.executeUpdate() != 0) {
+				return true;
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return false;
 	}
 	
 	@Override

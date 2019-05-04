@@ -9,12 +9,13 @@
     if(beans.size() == 0){
     	boardList += "<tr><td colspan='5'>Not List</td></tr>";
     }else{
-		for(BoardBean bean : beans){
-			boardList += "<tr><td>" + bean.getNum() + "</td>" +
-					"<td>" + bean.getTitle() + "</td>" +
-					"<td>" + bean.getWriter() + "</td>" +
-					"<td>" + bean.getWrite_date() + "</td>" +
-					"<td>" + bean.getRead_count() + "</td></tr>";
+		for(int i = beans.size()-1; i >= 0; i--){
+			boardList += "<tr><td>" + beans.get(i).getNum() + "</td>" +
+					"<td><a href='view.bo?num=" + beans.get(i).getNum() + "'>" + 
+						beans.get(i).getTitle() + "</a></td>" +
+					"<td>" + beans.get(i).getWriter() + "</td>" +
+					"<td>" + beans.get(i).getWrite_date() + "</td>" +
+					"<td>" + beans.get(i).getRead_count() + "</td></tr>";
 		}
     }
     pageContext.setAttribute("boardList", boardList);
@@ -24,7 +25,7 @@
 <head>
 <meta charset="UTF-8">
 <title>List</title>
-<link rel="stylesheet" type="text/css" href="./board/boardList.css" />
+<link rel="stylesheet" type="text/css" href="./css/board/list.css" />
 </head>
 <body>
 	<table border="1">

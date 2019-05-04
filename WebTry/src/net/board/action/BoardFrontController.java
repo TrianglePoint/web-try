@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,13 +27,26 @@ public class BoardFrontController extends HttpServlet implements FrontController
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
 		
-		if(command.equals("/show.bo")) {
-			// Just show the list.
+		if(command.equals("/")) { // main page (temp).
+			forward = new ActionForward();
+			forward.setRedirect(true);
+			forward.setPath("/list.bo");
+		}
+		else if(command.equals("/list.bo")) { // Show the board list.
+			action = new BoardListAction();
+			forward = action.execute(request, response);
+		}
+		else if(command.equals("/view.bo")) { // Show the post.
+			action = new BoardViewAction();
+			forward = action.execute(request, response);
+		}
+		else if(command.equals("/write.bo")) { // Show the write post page.
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/board/justShow.html");
-		}else if(command.equals("/list.bo")) {
-			action = new BoardListAction();
+			forward.setPath("/jsp/board/boardWrite.jsp");
+		}
+		else if(command.equals("/writeAction.bo")) { // Process the written post.
+			action = new BoardWriteAction();
 			forward = action.execute(request, response);
 		}
 		
