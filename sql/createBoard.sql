@@ -1,8 +1,11 @@
-create table board(
-    board_num number(4),
-    read_count number(4),
-    text varchar(2000),
-    title varchar(200),
-    write_date date,
-    writer varchar(40)
+CREATE TABLE BOARD(
+    NUM NUMBER(4),
+    READ_COUNT NUMBER(4) NOT NULL,
+    TEXT VARCHAR(2000),
+    TITLE VARCHAR(200) NOT NULL,
+    WRITE_DATE DATE NOT NULL,
+    WRITER VARCHAR(40) NOT NULL,
+    CONSTRAINT PK_BOARD PRIMARY KEY(NUM)
 );
+
+CREATE SEQUENCE BOARD_NUM_SEQ INCREMENT BY 1 START WITH 1;
